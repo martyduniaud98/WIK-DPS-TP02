@@ -2,17 +2,18 @@
 
 Api DevOps est une application Node.js qui écoute sur un port spécifique et renvoie les en-têtes HTTP lorsqu'une requête GET est effectuée sur l'URL `/ping`.
 
-## Lancement de l'application
+## Lancement des contenaires docker
+
+Le dockerfile 1 avec un seul stage :
 
 ```bash
-$ cd ~/api_devops
-$ node build/index.js
+docker build -t [my-name] .
+docker run -d -p 2000:2000 [my-name]
 ```
 
-Par défaut, le port 2000 sera utilisé si aucune valeur n'est spécifiée. Sinon on peut utiliser la variable d'environnement `PING_LISTEN_PORT=[port]` pour spécifier le port d'écoute.
-Exemple :
+Le dockerfile 2 avec deux stages :
 
 ```bash
-$ export PING_LISTEN_PORT=4000
-$ node build/index.js
+docker build -f Dockerfile2 -t [my-name] .
+docker run -d -p 2000:2000 [my-name]
 ```
