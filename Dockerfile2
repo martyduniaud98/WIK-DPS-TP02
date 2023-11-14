@@ -1,0 +1,15 @@
+FROM ubuntu:18.04 as builder
+WORKDIR /app
+RUN useradd -m nodeUser
+RUN chown -R nodeUser:nodeUser /app
+RUN apt update && apt install -y nodejs npm && apt clean
+COPY package*.json ./
+EXPOSE 2000
+COPY . .
+USER nodeUser
+
+
+
+FROM node:20-slim
+COPY --from=builder /app .
+CMD ["node", "build/index.js"]
