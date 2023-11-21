@@ -1,12 +1,14 @@
 import http from 'http';
 
-const port = process.env.PING_LISTEN_PORT || 2000;
+const os = require('os');
+const port = process.env.PING_LISTEN_PORT || 8080;
 
 const server = http.createServer((req, res) => {
   if (req.url == '/ping' && req.method == 'GET') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/JSON');
     res.end(JSON.stringify(req.headers));
+    console.log(os.hostname());
   } else {
     res.statusCode = 404;
     res.end();

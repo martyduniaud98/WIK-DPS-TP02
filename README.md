@@ -17,3 +17,12 @@ Le dockerfile 2 avec deux stages :
 docker build -f Dockerfile2 -t [my-name] .
 docker run -d -p 2000:2000 [my-name]
 ```
+
+
+## Lancement docker compose 
+    
+```bash
+docker-compose up -d
+```
+
+Accéder à l'api via `http://127.0.0.1:[9090]/ping`

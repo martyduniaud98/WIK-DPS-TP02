@@ -1,10 +1,18 @@
-FROM ubuntu:18.04
+FROM node:19-bullseye
 WORKDIR /app
-RUN useradd -m nodeUser
-RUN chown -R nodeUser:nodeUser /app
-RUN apt update && apt install -y nodejs npm && apt clean
+
 COPY package*.json ./
-EXPOSE 2000
-COPY . .
-USER nodeUser
-CMD ["node", "build/index.js"]
+RUN npm install
+
+COPY tsconfig.json ./
+COPY src ./src
+RUN npx tsc
+
+RUN adduser --no-create-home --group --disabled-login --system www
+RUN chown www -R /app
+USER www
+
+CMD node build/index.js
+
+
+
